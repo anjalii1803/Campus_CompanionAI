@@ -1,6 +1,7 @@
 -- ========================================================
 -- Seed Data: notices
--- Official Campus & Department Notices
+-- Motilal Nehru National Institute of Technology Allahabad (MNNIT)
+-- Official Academic Notifications & Circulars
 -- ========================================================
 
 USE campus_companion_db;
@@ -8,8 +9,8 @@ USE campus_companion_db;
 DELETE FROM notices;
 
 INSERT INTO notices (id, title, file_path, extracted_text, uploaded_at) VALUES
-(1, 'End Semester Examination Schedule - Autumn 2026', '/uploads/notices/exam_schedule_autumn2026.pdf', 'The End Semester Examinations for all B.Tech CSE students will commence from December 1st, 2026. Students must carry their valid student ID cards and printed hall tickets. No electronic devices are allowed inside examination halls.', NOW()),
-(2, 'Registration Open: Campus Hackathon 2026', '/uploads/notices/hackathon_brochure.pdf', 'Registration is now officially open for the Annual Campus Hackathon. Teams comprising 2-4 members can register via the student portal before Friday. Exciting cash prizes and incubation opportunities await the winning teams.', NOW()),
-(3, 'Placement Drive Schedule - Tech Giants', '/uploads/notices/placement_schedule.pdf', 'Campus recruitment drives for 7th semester students will begin next week. Pre-placement talks will be hosted in the Main Auditorium at 10:00 AM. Eligible registered students must attend in formal attire.', NOW()),
-(4, 'Library Notice: Book Renewal & Semester Clearance', '/uploads/notices/library_circular.pdf', 'All undergraduate students must return or renew borrowed books by the end of this month. Clearance certificates for graduating seniors will be issued only upon settlement of pending library dues.', NOW()),
-(5, 'Call for Research Papers: IEEE International Conference', '/uploads/notices/ieee_call_for_papers.pdf', 'Submissions are invited from faculty and student researchers for the upcoming IEEE International Conference on Intelligent Distributed Systems. Accepted papers will be published in the IEEE Xplore digital library.', NOW());
+(1, 'Academic Calendar for Session 2026-27 (Senate Resolution No. 121)', '/uploads/notices/academic_calendar_2026_27.pdf', 'As approved in the 87th meeting of the Senate held on March 30, 2026, the Academic Calendar for Odd and Even Semesters 2026-27 is notified for all undergraduate and postgraduate students. Strict attendance criteria of 75% will be enforced.', NOW()),
+(2, 'Mid-Semester Examinations Instructions - Odd Semester', '/uploads/notices/mid_sem_instructions.pdf', 'Mid-semester examinations will commence from next week. Students must occupy seats 15 minutes prior to commencement with institute ID cards. Mobile phones and programmable calculators are strictly prohibited in the examination halls.', NOW()),
+(3, 'Registration Circular: Culrav-Avishkar 2026', '/uploads/notices/culrav_avishkar_circular.pdf', 'Student Activity Centre (SAC) invites entries for competitive coding, robotics challenges, and creative arts in the annual techno-cultural festival. Team registrations can be submitted through the student gymkhana portal.', NOW()),
+(4, 'Guidelines for Submission of MCA Capstone Project & Lab Records', '/uploads/notices/mca_lab_evaluation.pdf', 'All MCA 1st, 3rd, and 5th semester students must submit their complete signed lab records and software project reports to their respective faculty coordinators before the practical evaluation deadline.', NOW()),
+(5, 'Library Book Renewal & Winter Clearance Deadline', '/uploads/notices/central_library_notice.pdf', 'All students are requested to renew their borrowed course books and clear pending library dues at the Central Library circulation counter before the commencement of end-semester examinations.', NOW());

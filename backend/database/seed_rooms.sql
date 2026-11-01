@@ -1,6 +1,7 @@
 -- ========================================================
 -- Seed Data: rooms
--- Campus Rooms & Laboratories
+-- Motilal Nehru National Institute of Technology Allahabad (MNNIT)
+-- Classrooms, Lecture Halls, Laboratories & Auditoriums
 -- ========================================================
 
 USE campus_companion_db;
@@ -8,13 +9,17 @@ USE campus_companion_db;
 DELETE FROM rooms;
 
 INSERT INTO rooms (id, room_name, block, floor, capacity, type) VALUES
-(1, 'Lab3', 'CS Block', 2, 40, 'Lab'),
-(2, 'Lab1', 'CS Block', 1, 35, 'Lab'),
-(3, 'Lab2', 'CS Block', 1, 40, 'Lab'),
-(4, '204', 'CS Block', 2, 60, 'Classroom'),
-(5, '201', 'CS Block', 2, 60, 'Classroom'),
-(6, '305', 'Academic Block A', 3, 65, 'Classroom'),
-(7, 'LH-101', 'Main Building', 1, 120, 'Classroom'),
-(8, 'LH-201', 'Main Building', 2, 120, 'Classroom'),
-(9, 'Auditorium', 'Main Building', 1, 500, 'Auditorium'),
-(10, 'Seminar Hall', 'CS Block', 3, 150, 'Auditorium');
+(1, 'NLH2', 'New Lecture Hall Complex', 1, 150, 'Classroom'),
+(2, 'NLH1', 'New Lecture Hall Complex', 1, 150, 'Classroom'),
+(3, 'GS3', 'Computer Science & Engineering Block', 0, 70, 'Classroom'),
+(4, 'GS4', 'Computer Science & Engineering Block', 0, 70, 'Classroom'),
+(5, 'GS5', 'Computer Science & Engineering Block', 0, 70, 'Classroom'),
+(6, 'GS8', 'Computer Science & Engineering Block', 0, 70, 'Classroom'),
+(7, 'CSNB1', 'CS New Building', 1, 80, 'Classroom'),
+(8, 'L1 Lab', 'Computer Science & Engineering Block', 1, 50, 'Lab'),
+(9, 'L2 Lab', 'Computer Science & Engineering Block', 1, 50, 'Lab'),
+(10, 'CCTF Lab', 'Computer Centre Complex', 1, 60, 'Lab'),
+(11, 'Lab3', 'Computer Science & Engineering Block', 2, 40, 'Lab'),
+(12, '204', 'Academic Block A', 2, 60, 'Classroom'),
+(13, 'MP Hall', 'Student Activity Centre (SAC)', 1, 800, 'Auditorium'),
+(14, 'Seminar Hall', 'Computer Science & Engineering Block', 3, 120, 'Auditorium');

@@ -1,6 +1,7 @@
 -- ========================================================
 -- Seed Data: faculty
--- CSE Department Faculty Members
+-- Motilal Nehru National Institute of Technology Allahabad (MNNIT)
+-- Department of Computer Science & Engineering Faculty
 -- ========================================================
 
 USE campus_companion_db;
@@ -8,13 +9,20 @@ USE campus_companion_db;
 DELETE FROM faculty;
 
 INSERT INTO faculty (id, name, subject, email, department, cabin_no) VALUES
-(1, 'Dr. Sharma', 'DBMS', 'sharma@college.edu', 'CSE', 'C-12'),
-(2, 'Prof. Verma', 'Operating Systems', 'verma@college.edu', 'CSE', 'C-14'),
-(3, 'Dr. Ananya Iyer', 'Computer Networks', 'ananya.iyer@college.edu', 'CSE', 'C-15'),
-(4, 'Prof. Rajesh Nair', 'Data Structures & Algorithms', 'rajesh.nair@college.edu', 'CSE', 'C-08'),
-(5, 'Dr. Priya Patel', 'Theory of Computation', 'priya.patel@college.edu', 'CSE', 'C-18'),
-(6, 'Dr. Sneha Reddy', 'Artificial Intelligence', 'sneha.reddy@college.edu', 'CSE', 'C-20'),
-(7, 'Prof. Amit Kulkarni', 'Software Engineering', 'amit.kulkarni@college.edu', 'CSE', 'C-11'),
-(8, 'Prof. Vikram Malhotra', 'Cyber Security', 'vikram.malhotra@college.edu', 'CSE', 'C-09'),
-(9, 'Dr. Meera Nambiar', 'Cloud Computing', 'meera.nambiar@college.edu', 'CSE', 'C-22'),
-(10, 'Prof. Rohan Sen', 'Web Development', 'rohan.sen@college.edu', 'CSE', 'C-05');
+(1, 'Dr. Manoj Wairiya', 'Programming & Problem Solving, Operating System', 'manoj@mnnit.ac.in', 'Computer Science & Engineering', 'CS-101'),
+(2, 'Mr. Rajesh Tripathi', 'Digital Computer Organization', 'rtripathi@mnnit.ac.in', 'Computer Science & Engineering', 'CS-102'),
+(3, 'Dr. Ranvijay', 'Shell Programming', 'ranvijay@mnnit.ac.in', 'Computer Science & Engineering', 'CS-103'),
+(4, 'Dr. Kapil', 'Foundation of Logic, IT Management', 'kapil@mnnit.ac.in', 'Computer Science & Engineering', 'CS-104'),
+(5, 'Dr. Prasun Chandra Tripathi', 'Programming & Problem Solving Lab', 'pctripathi@mnnit.ac.in', 'Computer Science & Engineering', 'CS-105'),
+(6, 'Prof. Anil Kumar Singh', 'Database Management System', 'aks@mnnit.ac.in', 'Computer Science & Engineering', 'CS-201'),
+(7, 'Prof. D.K. Yadav', 'Object Based Modeling', 'dky@mnnit.ac.in', 'Computer Science & Engineering', 'CS-202'),
+(8, 'Dr. Shashank Srivastava', 'Soft Computing', 'shashank@mnnit.ac.in', 'Computer Science & Engineering', 'CS-203'),
+(9, 'Dr. Dinesh Singh', 'Operating System Lab, Web Mining', 'dinesh@mnnit.ac.in', 'Computer Science & Engineering', 'CS-204'),
+(10, 'Dr. Divya Kumar', 'Analysis of Algorithms', 'divyak@mnnit.ac.in', 'Computer Science & Engineering', 'CS-205'),
+(11, 'Dr. Pragya Dwivedi', 'Web Programming Lab', 'pragya@mnnit.ac.in', 'Computer Science & Engineering', 'CS-206'),
+(12, 'Prof. Anoj Kumar', 'Software Testing', 'anoj@mnnit.ac.in', 'Computer Science & Engineering', 'CS-301'),
+(13, 'Dr. Kailash W. Kalare', 'Professional Ethics', 'kailash@mnnit.ac.in', 'Computer Science & Engineering', 'CS-302'),
+(14, 'Dr. Himanshu Nandanwar', 'Multimedia Technology', 'himanshu@mnnit.ac.in', 'Computer Science & Engineering', 'CS-303'),
+(15, 'Dr. Shreeya Swagatika Sahoo', 'Software Project Management', 'shreeya@mnnit.ac.in', 'Computer Science & Engineering', 'CS-304'),
+(16, 'Dr. Komal Gupta', 'E-Commerce', 'komal@mnnit.ac.in', 'Computer Science & Engineering', 'CS-305'),
+(17, 'Dr. Sharma', 'DBMS', 'sharma@college.edu', 'Computer Science & Engineering', 'C-12');
