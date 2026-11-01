@@ -1,0 +1,271 @@
+{
+  "info": {
+    "name": "Campus Companion AI — Full API Test Suite",
+    "description": "7 API tests covering chat, timetable, rooms, events, faculty, and notices.\nRun in order. Requires backend running on http://localhost:5000.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "campus-companion-ai-v1"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "http://localhost:5000/api",
+      "type": "string",
+      "description": "Base URL for all requests. Change to production URL for deployment testing."
+    },
+    {
+      "key": "notice_id",
+      "value": "1",
+      "type": "string",
+      "description": "Set this after Test 6 (notice upload) returns an id."
+    }
+  ],
+  "item": [
+    {
+      "name": "01 — POST /chat (AI Response)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    const body = pm.response.json();",
+              "    pm.expect(body.success).to.be.true;",
+              "});",
+              "pm.test('reply field exists', () => {",
+              "    const body = pm.response.json();",
+              "    pm.expect(body.data).to.have.property('reply');",
+              "    pm.expect(body.data.reply).to.be.a('string').and.not.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Where is Lab 3?\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/chat",
+          "host": ["{{base_url}}"],
+          "path": ["chat"]
+        },
+        "description": "Sends a natural-language message to the AI chatbot.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": { \"reply\": \"Lab 3 is in CS Block, 2nd floor.\" }\n}"
+      }
+    },
+    {
+      "name": "02 — GET /timetable (by day & branch)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('data is an array', () => {",
+              "    pm.expect(pm.response.json().data).to.be.an('array');",
+              "});",
+              "pm.test('data is not empty', () => {",
+              "    pm.expect(pm.response.json().data.length).to.be.greaterThan(0);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/timetable?day=Monday&branch=CSE",
+          "host": ["{{base_url}}"],
+          "path": ["timetable"],
+          "query": [
+            { "key": "day",    "value": "Monday" },
+            { "key": "branch", "value": "CSE"    }
+          ]
+        },
+        "description": "Fetches timetable rows for a given day and branch.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": [ { ...timetable rows... } ]\n}"
+      }
+    },
+    {
+      "name": "03 — GET /rooms/:room_name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('room_name is Lab3', () => {",
+              "    pm.expect(pm.response.json().data.room_name).to.eql('Lab3');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/rooms/Lab3",
+          "host": ["{{base_url}}"],
+          "path": ["rooms", "Lab3"]
+        },
+        "description": "Fetches details for a specific room by name.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": { \"room_name\": \"Lab3\", ... }\n}"
+      }
+    },
+    {
+      "name": "04 — GET /events (all events)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('data is an array', () => {",
+              "    pm.expect(pm.response.json().data).to.be.an('array');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/events",
+          "host": ["{{base_url}}"],
+          "path": ["events"]
+        },
+        "description": "Returns all campus events.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": [ { ...events... } ]\n}"
+      }
+    },
+    {
+      "name": "05 — GET /faculty/:name",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('name field exists', () => {",
+              "    pm.expect(pm.response.json().data).to.have.property('name');",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{base_url}}/faculty/Dr. Sharma",
+          "host": ["{{base_url}}"],
+          "path": ["faculty", "Dr. Sharma"]
+        },
+        "description": "Fetches details for a faculty member by name.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": { \"name\": \"Dr. Sharma\", ... }\n}"
+      }
+    },
+    {
+      "name": "06 — POST /notices/upload (PDF upload)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('id is returned', () => {",
+              "    const id = pm.response.json().data.id;",
+              "    pm.expect(id).to.be.a('number');",
+              "    // Save notice_id for Test 07",
+              "    pm.collectionVariables.set('notice_id', id);",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "notice",
+              "type": "file",
+              "src": [],
+              "description": "Select any PDF file from your machine"
+            }
+          ]
+        },
+        "url": {
+          "raw": "{{base_url}}/notices/upload",
+          "host": ["{{base_url}}"],
+          "path": ["notices", "upload"]
+        },
+        "description": "Uploads a PDF notice. The Multer field name MUST be 'notice'.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": { \"id\": 1, ... }\n}\n\n⚠️ After running this test, the notice_id variable is automatically set for Test 07."
+      }
+    },
+    {
+      "name": "07 — POST /notices/ask (Q&A on uploaded notice)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "pm.test('Status is 200', () => pm.response.to.have.status(200));",
+              "pm.test('success is true', () => {",
+              "    pm.expect(pm.response.json().success).to.be.true;",
+              "});",
+              "pm.test('answer field exists and is non-empty', () => {",
+              "    const answer = pm.response.json().data.answer;",
+              "    pm.expect(answer).to.be.a('string').and.not.empty;",
+              "});"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          { "key": "Content-Type", "value": "application/json" }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"notice_id\": {{notice_id}},\n  \"question\": \"What is the submission date?\"\n}"
+        },
+        "url": {
+          "raw": "{{base_url}}/notices/ask",
+          "host": ["{{base_url}}"],
+          "path": ["notices", "ask"]
+        },
+        "description": "Asks a natural-language question about a previously uploaded notice PDF.\nUses the notice_id variable set automatically by Test 06.\n\nExpected response:\n{\n  \"success\": true,\n  \"data\": { \"answer\": \"...\" }\n}"
+      }
+    }
+  ]
+}
