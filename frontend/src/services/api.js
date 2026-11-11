@@ -3,7 +3,7 @@ import axios from 'axios';
 // Base Axios instance
 const API = axios.create({
   baseURL: 'http://localhost:5000/api',
-  timeout: 30000,
+  timeout: 90000,
 });
 
 /**

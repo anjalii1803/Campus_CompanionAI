@@ -1,85 +1,94 @@
+
 /**
  * nlpService.js
- * ─────────────────────────────────────────────────────────────────────────────
- * Wraps the Google Gemini API (gemini-1.5-flash).
- * Falls back to a graceful error message if the API key is missing.
+ * Campus Companion AI - Gemini integration
+ * Uses the new @google/genai SDK
  */
 
-const { GoogleGenerativeAI } = require("@google/generative-ai");
-const { GEMINI_API_KEY }     = require("../config/env");
+const { GEMINI_API_KEY } = require("../config/env");
 
-// Initialise the client once and reuse across requests.
-let genAI  = null;
-let model  = null;
+let genAI = null;
 
-function getModel() {
-  if (!model) {
-    if (!GEMINI_API_KEY) {
-      throw new Error("GEMINI_API_KEY is not set in your .env file.");
-    }
-    genAI = new GoogleGenerativeAI(GEMINI_API_KEY);
-    model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+async function getAI() {
+  const apiKey = process.env.GEMINI_API_KEY || GEMINI_API_KEY;
+
+  if (!apiKey) {
+    throw new Error("GEMINI_API_KEY is missing from .env");
   }
-  return model;
+
+  if (!genAI) {
+    const { GoogleGenAI } = await import("@google/genai");
+    genAI = new GoogleGenAI({ apiKey });
+  }
+
+  return genAI;
 }
 
-/**
- * getAIAnswer(userMessage, contextData)
- * ─────────────────────────────────────
- * @param {string} userMessage  — the student's original question
- * @param {string} contextData  — JSON-stringified DB result / PDF text used as context
- * @returns {Promise<string>}   — Gemini's natural-language answer
- */
+async function generateAIResponse(prompt) {
+  const ai = await getAI();
+
+  const response = await ai.models.generateContent({
+    model: process.env.GEMINI_MODEL || "gemini-3.5-flash-lite",
+    contents: prompt
+  });
+
+  return response.text.trim();
+}
+
+// Answer student questions using campus database records
 async function getAIAnswer(userMessage, contextData = "") {
-  const prompt = `You are Campus Companion AI, a helpful and friendly assistant for college students.
-Based on this campus data:
+  const prompt = `You are MNNIT Campus Companion AI, an accurate, friendly and helpful assistant for college students.
+
+Use the following official campus database records to answer the student's question accurately.
+
+Campus Database Records:
 ${contextData}
 
-Answer this student question concisely and clearly:
-${userMessage}
+Student Question:
+"${userMessage}"
 
-If the campus data is empty or not relevant, answer from your general knowledge about college life. Keep the response brief (2-4 sentences).`;
+Guidelines:
+1. For timetable questions, organize classes by subject, time, room and faculty.
+2. For room or lab locations, specify building/block and floor.
+3. For professor questions, provide subject, cabin and email if available.
+4. Never invent information missing from the database.
+5. Use clear, friendly language and Markdown formatting.`;
 
   try {
-    const geminiModel = getModel();
-    const result      = await geminiModel.generateContent(prompt);
-    const response    = await result.response;
-    return response.text().trim();
+    return await generateAIResponse(prompt);
   } catch (err) {
     console.error("Gemini API error:", err.message);
-    throw new Error("AI service is temporarily unavailable. Please try again later.");
+    throw err;
   }
 }
 
-/**
- * getAIAnswerFromPDF(question, extractedText)
- * ────────────────────────────────────────────
- * Specialised wrapper for notice/PDF Q&A.
- * @param {string} question      — student's question about the notice
- * @param {string} extractedText — full text extracted from the uploaded PDF
- * @returns {Promise<string>}
- */
+// Answer questions about uploaded college notices/PDFs
 async function getAIAnswerFromPDF(question, extractedText = "") {
-  const prompt = `You are Campus Companion AI. A student has uploaded an official college notice/PDF and has a question about it.
+  const prompt = `You are Campus Companion AI.
+
+A student has uploaded an official college notice/PDF.
 
 Notice content:
 """
 ${extractedText}
 """
 
-Student question: ${question}
+Student question:
+${question}
 
-Answer the question based only on the notice content above. Be concise and specific. If the answer is not in the notice, say so clearly.`;
+Answer based only on the notice content.
+Be concise and specific.
+If the answer is not present, clearly say so.`;
 
   try {
-    const geminiModel = getModel();
-    const result      = await geminiModel.generateContent(prompt);
-    const response    = await result.response;
-    return response.text().trim();
+    return await generateAIResponse(prompt);
   } catch (err) {
     console.error("Gemini PDF Q&A error:", err.message);
-    throw new Error("AI service is temporarily unavailable. Please try again later.");
+    throw new Error("AI service could not process the notice.");
   }
 }
 
-module.exports = { getAIAnswer, getAIAnswerFromPDF };
+module.exports = {
+  getAIAnswer,
+  getAIAnswerFromPDF
+};

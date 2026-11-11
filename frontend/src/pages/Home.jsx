@@ -187,7 +187,7 @@ const Home = () => {
                   <div className="lookup-input-wrapper">
                     <input
                       type="text"
-                      placeholder="e.g. Lab3, 204, Seminar Hall"
+                      placeholder="e.g. NLH2, L1 Lab, CCTF Lab"
                       value={roomQuery}
                       onChange={(e) => setRoomQuery(e.target.value)}
                       className="lookup-input"
@@ -205,7 +205,7 @@ const Home = () => {
                 {/* Quick pills */}
                 <div className="quick-sample-pills">
                   <span>Try:</span>
-                  {['Lab3', '204', 'Seminar Hall'].map((room) => (
+                  {['NLH2', 'L1 Lab', 'CCTF Lab'].map((room) => (
                     <button
                       key={room}
                       type="button"
@@ -276,7 +276,7 @@ const Home = () => {
                   <div className="lookup-input-wrapper">
                     <input
                       type="text"
-                      placeholder="e.g. Dr. Sharma, Prof. Verma"
+                      placeholder="e.g. Prof. Anil Kumar Singh, Dr. Manoj Wairiya"
                       value={facultyQuery}
                       onChange={(e) => setFacultyQuery(e.target.value)}
                       className="lookup-input"
@@ -294,7 +294,7 @@ const Home = () => {
                 {/* Quick pills */}
                 <div className="quick-sample-pills">
                   <span>Try:</span>
-                  {['Dr. Sharma', 'Dr. Verma'].map((fac) => (
+                  {['Prof. Anil Kumar Singh', 'Dr. Manoj Wairiya', 'Dr. Shashank Srivastava'].map((fac) => (
                     <button
                       key={fac}
                       type="button"

@@ -4,15 +4,15 @@ import { useChat } from '../context/ChatContext';
 
 const DEFAULT_QUESTIONS = [
   { text: 'What class do I have tomorrow?', icon: Calendar },
-  { text: 'Where is Lab 3?', icon: MapPin },
-  { text: 'Any events this week?', icon: Sparkles },
+  { text: 'Where is L1 Lab?', icon: MapPin },
+  { text: 'Any upcoming events?', icon: Sparkles },
   { text: 'Who teaches DBMS?', icon: BookOpen },
-  { text: "Where is Dr. Sharma's cabin?", icon: Clock },
-  { text: 'Show CSE timetable for Monday', icon: Calendar },
+  { text: "Where is Dr. Manoj Wairiya's cabin?", icon: Clock },
+  { text: 'Show MCA 3rd Sem timetable for Monday', icon: Calendar },
 ];
 
 const SuggestedQuestions = ({ onSelectQuestion }) => {
-  const { setInputValue, sendMessage } = useChat();
+  const { setInputValue } = useChat();
 
   const handleChipClick = (questionText) => {
     if (onSelectQuestion) {
