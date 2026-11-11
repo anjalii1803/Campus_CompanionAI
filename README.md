@@ -269,3 +269,6 @@ git push origin main
 ## 📄 License
 
 This project was built as a college group project. All rights reserved by the team.
+
+### Database Seed
+- Run `backend/database/campus_companion_master_seed.sql` in MySQL to populate MCA timetable, rooms, and faculty data.
